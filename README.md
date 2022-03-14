@@ -13,10 +13,17 @@ API used: https://superheroapi.com/
 
 Technology used:
   . HTML
+  
   . CSS
+  
   . Javascript
+  
   . Mongodb
+  
   . Express
+  
   . Liquid
+  
   . Liquid-express-views
+  
   . Method-override
