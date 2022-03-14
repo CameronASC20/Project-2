@@ -12,6 +12,7 @@ API used: https://superheroapi.com/
 
 
 Technology used:
+
   . HTML
   
   . CSS
