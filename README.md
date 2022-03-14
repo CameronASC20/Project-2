@@ -4,3 +4,6 @@
 
 
 ![Superhero ERD](https://user-images.githubusercontent.com/68292255/158236487-a220be64-5d26-46bc-a3f9-1dc83c354757.jpeg)
+
+
+API used https://superheroapi.com/
