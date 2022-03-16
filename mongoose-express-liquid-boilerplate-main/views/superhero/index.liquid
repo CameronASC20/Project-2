@@ -1,0 +1,30 @@
+{% layout 'layout.liquid'%}
+{% block content %}
+<div>
+    <h2 class="display-6">All Superheroes</h2>
+    <div class="row">
+        {% for superhero in superheroes %}
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header">{{ superhero.name }}</h5>
+            <div class="card-body">
+                <p class="card-text">
+                    Powerstats: {{ superhero.powerstats }}
+                </p>
+                <p class="card-text">
+                    Appearance: {{ superhero.appearance }}
+                </p>
+                <p class="card-text">
+                    Biography: {{ superhero.biography }}
+                </p>
+                <p class="card-text">
+                    Image: {{ superhero.images[1] }}
+                </p>
+                <a href="/superheroapp/{{ superhero.id }}" class="btn btn-info">
+                    View {{ superhero.name }}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
