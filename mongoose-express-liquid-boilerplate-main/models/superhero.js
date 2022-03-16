@@ -14,6 +14,7 @@ const superheroSchema = new Schema(
 		powerstats: { type: Object, required: true },
         appearance: { type: Object, required: true },
 		biography: { type: Object, required: true },
+		connections: { type: Object, required: true },
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',

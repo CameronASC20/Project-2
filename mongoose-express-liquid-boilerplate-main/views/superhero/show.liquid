@@ -3,20 +3,44 @@
 <div class="container-md">
     <article>
         <h2>
-            {{ example.title }} -
-            {% if example.ready %}
-            Ready
-            {% else %}
-            Not Ready
-            {%endif%}
+            {{ superhero.name }}
         </h2>
-        <h3>Amount: {{ example.amount }}</h3>
-        <h6>Body: {{ example.body }}</h6>
-        {% if example.owner == userId %}
+        <img src="{{ superhero.images.md }}"/>
+        <h3>Powerstats</h3>
+             <ul>
+               <li>Intelligence: {{ superhero.powerstats.intelligence }}</li> 
+               <li>Strength: {{ superhero.powerstats.strength}}</li>
+               <li>Speed: {{ superhero.powerstats.speed }}</li>
+               <li>Durability: {{ superhero.powerstats.durability }}</li>
+               <li>Power: {{ superhero.powerstats.power }}</li>
+               <li>Combat: {{ superhero.powerstats.combat }}</li>
+             </ul>
+        <h3>Appearance</h3>
+            <p>
+                <li>Gender: {{ superhero.appearance.gender }}</li>
+                <li>Race: {{ superhero.appearance.race }}</li>
+                <li>Height: {{ superhero.appearance.height }}</li>
+                <li>Weight: {{ superhero.appearance.weight }}</li>
+                <li>Eye Color: {{ superhero.appearance.eyeColor }}</li>
+                <li>Hair Color: {{ superhero.appearance.hairColor }}</li>
+            </p>
+            <h3>Biography</h3>
+            <p>
+                <li>Full Name: {{ superhero.biography.fullName }}</li>
+                <li>Alter Egos: {{ superhero.biography.alterEgos }}</li>
+                <li>Aliases: {{ superhero.biography.aliases }}</li>
+                <li>Place of birth: {{ superhero.biography.placeOfBirth }}</li>
+                <li>First Appearance: {{ superhero.biography.firstAppearance }}</li>
+                <li>Publisher: {{ superhero.biography.publisher }}</li>
+                <li>Alignment: {{ superhero.biography.alignment }}</li>
+            </p>
+            <h3>Connections</h3>
+            <p>{{ superhero.connections.groupAffiliation }}</p>
+        {% if superhero.owner == userId %}
         <div class="btn-group">
 
-            <a href="/examples/{{ example.id }}/edit" class="btn btn-primary">Edit</a>
-            <form action="/examples/{{ example.id }}?_method=DELETE" method="POST">
+            <a href="/superheroapp/{{ superhero.id }}" class="btn btn-primary">Edit</a>
+            <form action="/superhero/{{ superhero.id }}?_method=DELETE" method="POST">
                 <input type="submit" value="Delete" class="btn btn-danger">
             </form>
         </div>

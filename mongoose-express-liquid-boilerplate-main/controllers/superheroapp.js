@@ -1,6 +1,6 @@
 // Import Dependencies
 const express = require('express')
-const Example = require('../models/superhero')
+const Superhero = require('../models/superhero')
 const fetch = require('node-fetch')
 
 // Create router
@@ -39,23 +39,25 @@ router.get('/', (req, res) => {
 			// res.send(responseData)
 		})
 		.then((jsonData) => {
-			// const superId = req.params.id
 			console.log(jsonData)
-			res.send(jsonData)
-			// res.render('superhero/index', { superId })
+			// res.send(jsonData)
+			res.render('superhero/index', { superheroes: jsonData })
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
 
-// index that shows only the user's examples
-router.get('/mine', (req, res) => {
-    // destructure user info from req.session
-    const { username, userId, loggedIn } = req.session
-	Example.find({ owner: userId })
-		.then(examples => {
-			res.render('examples/index', { examples, username, loggedIn })
+// show route -> index that shows the superhero selected
+router.get('/:id', (req, res) => {
+	console.log('PARAMS', req.params.id)
+	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
+		.then(jsonData => {
+			const superhero = jsonData.json()
+		.then(superhero => {
+				console.log('LOOK AT THIS', superhero)
+				res.render('superhero/show', { superhero: superhero })
+			})
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
@@ -86,10 +88,9 @@ router.post('/', (req, res) => {
 // edit route -> GET that takes us to the edit form view
 router.get('/:id/edit', (req, res) => {
 	// we need to get the id
-	const exampleId = req.params.id
-	Example.findById(exampleId)
-		.then(example => {
-			res.render('examples/edit', { example })
+	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
+		.then(superhero => {
+			res.render('superhero/edit', { superhero })
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
@@ -98,42 +99,27 @@ router.get('/:id/edit', (req, res) => {
 
 // update route
 router.put('/:id', (req, res) => {
-	const exampleId = req.params.id
-	req.body.ready = req.body.ready === 'on' ? true : false
-
-	Example.findByIdAndUpdate(exampleId, req.body, { new: true })
-		.then(example => {
-			res.redirect(`/examples/${example.id}`)
+	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
+		.then(superhero => {
+			res.redirect(`/superhero/${req.params.id}`)
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
 
-// show route
-router.get('/:id', (req, res) => {
-	const exampleId = req.params.id
-	Example.findById(exampleId)
-		.then(example => {
-            const {username, loggedIn, userId} = req.session
-			res.render('examples/show', { example, username, loggedIn, userId })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+
 
 // delete route
-router.delete('/:id', (req, res) => {
-	const exampleId = req.params.id
-	Example.findByIdAndRemove(exampleId)
-		.then(example => {
-			res.redirect('/examples')
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// router.delete('/:id', (req, res) => {
+// 	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
+// 		.then(superhero => {
+// 			res.redirect('/superheroapp')
+// 		})
+// 		.catch(error => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
 
 // Export the Router
 module.exports = router

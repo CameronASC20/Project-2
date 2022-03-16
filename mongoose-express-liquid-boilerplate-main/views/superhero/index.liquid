@@ -8,16 +8,7 @@
             <h5 class="card-header">{{ superhero.name }}</h5>
             <div class="card-body">
                 <p class="card-text">
-                    Powerstats: {{ superhero.powerstats }}
-                </p>
-                <p class="card-text">
-                    Appearance: {{ superhero.appearance }}
-                </p>
-                <p class="card-text">
-                    Biography: {{ superhero.biography }}
-                </p>
-                <p class="card-text">
-                    Image: {{ superhero.images[1] }}
+                    <img src="{{ superhero.images.sm }}"/>
                 </p>
                 <a href="/superheroapp/{{ superhero.id }}" class="btn btn-info">
                     View {{ superhero.name }}
