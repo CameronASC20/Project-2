@@ -7,7 +7,7 @@
         </h2>
         <img src="{{ superhero.images.md }}"/>
         <h3>Powerstats</h3>
-             <ul>
+             <ul class="ul">
                <li>Intelligence: {{ superhero.powerstats.intelligence }}</li> 
                <li>Strength: {{ superhero.powerstats.strength}}</li>
                <li>Speed: {{ superhero.powerstats.speed }}</li>
@@ -16,16 +16,16 @@
                <li>Combat: {{ superhero.powerstats.combat }}</li>
              </ul>
         <h3>Appearance</h3>
-            <p>
+            <ul class="ul">
                 <li>Gender: {{ superhero.appearance.gender }}</li>
                 <li>Race: {{ superhero.appearance.race }}</li>
                 <li>Height: {{ superhero.appearance.height }}</li>
                 <li>Weight: {{ superhero.appearance.weight }}</li>
                 <li>Eye Color: {{ superhero.appearance.eyeColor }}</li>
                 <li>Hair Color: {{ superhero.appearance.hairColor }}</li>
-            </p>
-            <h3>Biography</h3>
-            <p>
+            </ul>
+        <h3>Biography</h3>
+            <ul class="ul">
                 <li>Full Name: {{ superhero.biography.fullName }}</li>
                 <li>Alter Egos: {{ superhero.biography.alterEgos }}</li>
                 <li>Aliases: {{ superhero.biography.aliases }}</li>
@@ -33,15 +33,19 @@
                 <li>First Appearance: {{ superhero.biography.firstAppearance }}</li>
                 <li>Publisher: {{ superhero.biography.publisher }}</li>
                 <li>Alignment: {{ superhero.biography.alignment }}</li>
-            </p>
-            <h3>Connections</h3>
+            </ul>
+        <h3>Connections</h3>
             <p>{{ superhero.connections.groupAffiliation }}</p>
         {% if superhero.owner == userId %}
         <div class="btn-group">
 
-            <a href="/superheroapp/{{ superhero.id }}" class="btn btn-primary">Edit</a>
-            <form action="/superhero/{{ superhero.id }}?_method=DELETE" method="POST">
-                <input type="submit" value="Delete" class="btn btn-danger">
+            
+            <form action="/superheroapp" method="POST">
+                <input type="hidden" name="id" value="{{ superhero.id }}">
+                <input type="hidden" name="name" value="{{ superhero.name }}">
+                <input type="hidden" name="img" value="{{ superhero.images.md }}">
+                <input type="hidden" name="powerstats" value="{{ superhero.powerstats }}">
+                <input type="submit" value="Favorite" class="btn btn-danger">
             </form>
         </div>
         {% endif %}

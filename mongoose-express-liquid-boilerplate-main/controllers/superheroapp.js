@@ -71,14 +71,16 @@ router.get('/new', (req, res) => {
 })
 
 // create -> POST route that actually calls the db and makes a new document
-router.post('/', (req, res) => {
+router.post('/:id', (req, res) => {
 	req.body.ready = req.body.ready === 'on' ? true : false
-
+	// create form with type submit that has a value of favorite
+	// in that form use hidden inputs with values of the api info that I want to save
+	// that form info is available in req.body
 	req.body.owner = req.session.userId
-	Example.create(req.body)
-		.then(example => {
-			console.log('this was returned from create', example)
-			res.redirect('/examples')
+	console.log('req.body', req.body)
+	Superhero.create(req.body)
+		.then(superhero => {
+			res.redirect('superhero/index')
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
@@ -88,9 +90,10 @@ router.post('/', (req, res) => {
 // edit route -> GET that takes us to the edit form view
 router.get('/:id/edit', (req, res) => {
 	// we need to get the id
-	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
+	const superId = req.params.id
+	Superhero.findById(superId)
 		.then(superhero => {
-			res.render('superhero/edit', { superhero })
+			res.render('superhero/edit')
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
@@ -99,9 +102,10 @@ router.get('/:id/edit', (req, res) => {
 
 // update route
 router.put('/:id', (req, res) => {
-	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
+	Superhero.findByIdAndUpdate(superId)
 		.then(superhero => {
-			res.redirect(`/superhero/${req.params.id}`)
+			console.log('the updated superhero', superhero)
+			res.redirect('superhero/index')
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
