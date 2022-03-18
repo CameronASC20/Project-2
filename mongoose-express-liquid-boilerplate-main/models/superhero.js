@@ -12,6 +12,7 @@ const superheroSchema = new Schema(
 		id: { type: String },
 		name: { type: String },
 		powerstats: { type: Object },
+		images: { type: String },
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',

@@ -71,7 +71,7 @@ router.get('/new', (req, res) => {
 })
 
 // create -> POST route that actually calls the db and makes a new document
-router.post('/:id', (req, res) => {
+router.post('/', (req, res) => {
 	req.body.ready = req.body.ready === 'on' ? true : false
 	// create form with type submit that has a value of favorite
 	// in that form use hidden inputs with values of the api info that I want to save
@@ -80,7 +80,7 @@ router.post('/:id', (req, res) => {
 	console.log('req.body', req.body)
 	Superhero.create(req.body)
 		.then(superhero => {
-			res.redirect('superhero/index')
+			res.render('superhero/favorite')
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
@@ -93,7 +93,9 @@ router.get('/:id/edit', (req, res) => {
 	const superId = req.params.id
 	Superhero.findById(superId)
 		.then(superhero => {
-			res.render('superhero/edit')
+			const username = req.session.username
+			const loggedIn = req.session.loggedIn
+			res.render('superhero/edit', { superhero, username, loggedIn})
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
