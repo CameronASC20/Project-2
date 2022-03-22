@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
 		})
 })
 
-// show route -> index that shows the superhero selected
+// show route -> index that shows the superhero selected and renders the show page
 router.get('/:id', (req, res) => {
 	console.log('PARAMS', req.params.id)
 	fetch(`https://akabab.github.io/superhero-api/api/id/${req.params.id}.json`)
@@ -67,11 +67,11 @@ router.get('/:id', (req, res) => {
 // new route -> GET route that renders our page with the form
 router.get('/new', (req, res) => {
 	const { username, userId, loggedIn } = req.session
-	res.render('examples/new', { username, loggedIn })
+	res.render('suphero/new', { username, loggedIn })
 })
 
-// create -> POST route that actually calls the db and makes a new document
-router.post('/', (req, res) => {
+// create -> POST route that favorites the superhero and renders the show page
+router.post('/:id', (req, res) => {
 	req.body.ready = req.body.ready === 'on' ? true : false
 	// create form with type submit that has a value of favorite
 	// in that form use hidden inputs with values of the api info that I want to save
@@ -87,6 +87,20 @@ router.post('/', (req, res) => {
 		})
 })
 
+// create -> POST route that creates a new superhero
+router.post('/:id', (req, res) => {
+	req.body.ready = req.body.ready === 'on' ? true : false
+	req.body.owner = req.session.userId
+	console.log('req.body', req.body)
+	Superhero.create(req.body)
+		.then(superhero => {
+			res.render('superhero/new')
+		})
+		.catch(error => {
+			res.redirect(`/error?error=${error}`)
+		})
+})
+
 // edit route -> GET that takes us to the edit form view
 router.get('/:id/edit', (req, res) => {
 	// we need to get the id
@@ -95,7 +109,7 @@ router.get('/:id/edit', (req, res) => {
 		.then(superhero => {
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
-			res.render('superhero/edit', { superhero, username, loggedIn})
+			res.render('superhero/edit')
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)
@@ -107,7 +121,7 @@ router.put('/:id', (req, res) => {
 	Superhero.findByIdAndUpdate(superId)
 		.then(superhero => {
 			console.log('the updated superhero', superhero)
-			res.redirect('superhero/index')
+			res.redirect(`/superheroapp`)
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)

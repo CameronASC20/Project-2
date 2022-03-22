@@ -5,6 +5,7 @@ require("dotenv").config() // make env variables available
 const express = require("express")
 const middleware = require('./utils/middleware')
 const SuperheroRouter = require('./controllers/superheroapp')
+const CommentRouter = require('./controllers/comment')
 const UserRouter = require('./controllers/user')
 const User = require("./models/user")
 // SEE MORE DEPENDENCIES IN ./utils/middleware.js
@@ -23,6 +24,7 @@ middleware(app)
 
 app.use('/auth', UserRouter)
 app.use('/superheroapp', SuperheroRouter)
+app.use('/comment', CommentRouter)
 
 app.get('/', (req, res) => {
     const { username, userId, loggedIn } = req.session
@@ -45,6 +47,6 @@ app.all('*', (req, res) => {
 //////////////////////////////
 //      App Listener        //
 //////////////////////////////
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`listening on port ${process.env.PORT}`)
 })

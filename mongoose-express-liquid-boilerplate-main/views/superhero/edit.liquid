@@ -1,7 +1,7 @@
 {% layout 'layout.liquid' %}
 {% block content %}
 <div class="container-sm">
-    <form action="/superheroapp" method="POST">
+    <form action="/superheroapp//edit" method="POST">
         <fieldset>
             <legend>Edit Superhero</legend>
             <label class="form-label">Name: </label>
@@ -52,6 +52,103 @@
                 type="number" 
                 name="combat"
                 value="{{ superhero.powerstats.combat }}"
+                class="form-control"
+            >
+            <label class="form-label">Gender: </label>
+            <input 
+                type="text" 
+                name="gender"
+                value="{{ superhero.appearance.gender }}"
+                class="form-control"
+            >
+            <label class="form-label">Race: </label>
+            <input 
+                type="text" 
+                name="race"
+                value="{{ superhero.appearance.race }}"
+                class="form-control"
+            >
+            <label class="form-label">Height: </label>
+            <input 
+                type="text" 
+                name="height"
+                value="{{ superhero.appearance.height }}"
+                class="form-control"
+            >
+            <label class="form-label">Weight: </label>
+            <input 
+                type="text" 
+                name="weight"
+                value="{{ superhero.appearance.weight }}"
+                class="form-control"
+            >
+            <label class="form-label">Eye color: </label>
+            <input 
+                type="text" 
+                name="eye color"
+                value="{{ superhero.appearance.eyeColor }}"
+                class="form-control"
+            >
+            <label class="form-label">Hair color: </label>
+            <input 
+                type="text" 
+                name="hair color"
+                value="{{ superhero.appearance.hairColor }}"
+                class="form-control"
+            >
+            <label class="form-label">Full name: </label>
+            <input 
+                type="text" 
+                name="full name"
+                value="{{ superhero.biography.fullName }}"
+                class="form-control"
+            >
+            <label class="form-label">Alter egos: </label>
+            <input 
+                type="text" 
+                name="alter egos"
+                value="{{ superhero.biography.alterEgos }}"
+                class="form-control"
+            ><label class="form-label">Aliases: </label>
+            <input 
+                type="text" 
+                name="aliases"
+                value="{{ superhero.biography.aliases }}"
+                class="form-control"
+            >
+            <label class="form-label">Place of birth: </label>
+            <input 
+                type="text" 
+                name="place of birth"
+                value="{{ superhero.biography.placeOfBirth }}"
+                class="form-control"
+            >
+            <label class="form-label">First appearance: </label>
+            <input 
+                type="text" 
+                name="first appearance"
+                value="{{ superhero.biography.firstAppearance }}"
+                class="form-control"
+            >
+            <label class="form-label">Publisher: </label>
+            <input 
+                type="text" 
+                name="publisher"
+                value="{{ superhero.biography.publisher }}"
+                class="form-control"
+            >
+            <label class="form-label">Alignment: </label>
+            <input 
+                type="text" 
+                name="alignment"
+                value="{{ superhero.biography.alignment }}"
+                class="form-control"
+            >
+            <label class="form-label">Connections: </label>
+            <input 
+                type="text" 
+                name="connections"
+                value="{{ superhero.connections.groupAffiliation }}"
                 class="form-control"
             >
         </fieldset>

@@ -9,10 +9,10 @@ const { Schema, model } = mongoose
 
 const superheroSchema = new Schema(
 	{
+		img: { type: String },
 		id: { type: String },
 		name: { type: String },
 		powerstats: { type: Object },
-		images: { type: String },
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',

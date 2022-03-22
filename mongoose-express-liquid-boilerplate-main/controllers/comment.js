@@ -19,7 +19,7 @@ const router = express.Router()
 // only need two routes for comments right now
 // POST -> to create a comment
 router.post('/:superId', (req, res) => {
-    const superId = req.params.superId
+    const superId = req.params.superhero.id
     console.log('first comment body', req.body)
     
     // we'll adjust req.body to include an author
