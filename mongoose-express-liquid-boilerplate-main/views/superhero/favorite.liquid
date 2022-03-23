@@ -5,7 +5,7 @@
         <h2>
             {{ superhero.name }}
         </h2>
-        <img src="{{ superhero.images.md }}"/>
+        <img src="{{ superhero.images }}"/>
         <h3>Powerstats</h3>
              <ul class="ul">
                <li>Intelligence: {{ superhero.powerstats.intelligence }}</li> 
@@ -38,22 +38,28 @@
             <p>{{ superhero.connections.groupAffiliation }}</p>
         {% if superhero.owner == userId %}
         <div class="btn-group">
-            <a href="/superheroapp/{{ superhero.id }}/edit" class="btn btn-primary">Edit</a>
-            <form action="/superheroapp/{{ superhero.id }}?_method=DELETE" method="POST">
+            <a href="/superheroapp/{{ superhero._id }}/edit" class="btn btn-primary">Edit</a>
+            <form action="/superheroapp/{{ superhero._id }}?_method=DELETE" method="POST">
                 <input type="submit" value="Delete" class="btn btn-danger">
             </form>
         </div>
         <div class="col-md-6">
-            <form action="/comment/{{superhero.id}}" method="POST">
+            <form action="/comment/{{superhero._id}}" method="POST">
                 <fieldset>
                     <legend>Add Comment</legend>
                     <label class="form-label">Comment: </label>
-                    <input type="text" class="form-control" name="note" placeholder="enter comment here...">
+                    <input type="text" class="form-control" name="title" placeholder="Title">
+                    <input type="textarea" class="form-control" name="body" placeholder="enter comment here...">
                 </fieldset>
             <input type="submit" class="btn btn-success" value="Add Comment">
             </form>
         </div>
         {% endif %}
+        {% for comment in superhero.comments %}
+            <h6>{{ comment.author.username }}</h6>
+            <h6>{{ comment.title }}</h6>
+            <p>{{ comment.body }}</p>
+        {% endfor %}
     </article>
 </div>
 {% endblock %}

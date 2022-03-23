@@ -1,7 +1,7 @@
 {% layout 'layout.liquid' %}
 {% block content %}
 <div class="container-sm">
-    <form action="/superheroapp//edit" method="POST">
+    <form action="/superheroapp/{{ superhero._id }}/edit?_method=PUT" method="POST">
         <fieldset>
             <legend>Edit Superhero</legend>
             <label class="form-label">Name: </label>

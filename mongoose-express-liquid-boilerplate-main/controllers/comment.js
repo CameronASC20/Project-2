@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 // we need our Fruit MODEL because comments are ONLY a schema
 // so we'll run queries on fruits, and add in comments
 const Superhero = require('../models/superhero')
-
+const Comment = require('../models/comment')
 ////////////////////////////////////////////
 // Create router
 ////////////////////////////////////////////
@@ -19,7 +19,7 @@ const router = express.Router()
 // only need two routes for comments right now
 // POST -> to create a comment
 router.post('/:superId', (req, res) => {
-    const superId = req.params.superhero.id
+    const superId = req.params.superId
     console.log('first comment body', req.body)
     
     // we'll adjust req.body to include an author
@@ -27,17 +27,27 @@ router.post('/:superId', (req, res) => {
     req.body.author = req.session.userId
     console.log('updated comment body', req.body)
     // we'll find the superhero with the superId
-    Superhero.findById(superId)
+    Comment.create({
+        title: req.body.title,
+        body: req.body.body,
+        superhero: superId,
+        author: req.body.author
+    })
+    .then(comment => {
+        console.log(comment)
+        Superhero.findById(superId)
         .then(superhero => {
             // then we'll send req.body to the comments array
-            superhero.comments.push(req.body)
+            superhero.comments.push(comment._id)
             // save the superhero
             return superhero.save()
         })
         .then(superhero => {
             // redirect
-            res.redirect(`/superheroapp/${superhero.id}`)
+            console.log(superhero)
+            res.redirect(`/superheroapp/favorite/${superhero._id}`)
         })
+    })
         // or show an error if we have one
         .catch(error => {
             console.log(error)

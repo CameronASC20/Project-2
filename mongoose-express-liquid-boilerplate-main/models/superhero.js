@@ -3,16 +3,24 @@ const mongoose = require('./connection')
 
 // import user model for populate
 const User = require('./user')
+const Comment = require('./comment')
 
 // destructure the schema and model constructors from mongoose
 const { Schema, model } = mongoose
 
 const superheroSchema = new Schema(
 	{
-		img: { type: String },
+		images: { type: String },
 		id: { type: String },
 		name: { type: String },
-		powerstats: { type: Object },
+		powerstats: { type: Object, },
+		appearance: { type: Object },
+		biography: { type: Object },
+		connections: { type: Object },
+		comments: [{ 
+			type: Schema.Types.ObjectID,
+			ref: 'Comment',
+		 }],
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',

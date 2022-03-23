@@ -19,8 +19,8 @@
             <ul class="ul">
                 <li>Gender: {{ superhero.appearance.gender }}</li>
                 <li>Race: {{ superhero.appearance.race }}</li>
-                <li>Height: {{ superhero.appearance.height }}</li>
-                <li>Weight: {{ superhero.appearance.weight }}</li>
+                <li>Height: {{ superhero.appearance.height[0] }}</li>
+                <li>Weight: {{ superhero.appearance.weight[0] }}</li>
                 <li>Eye Color: {{ superhero.appearance.eyeColor }}</li>
                 <li>Hair Color: {{ superhero.appearance.hairColor }}</li>
             </ul>
@@ -40,11 +40,29 @@
         <div class="btn-group">
 
             
-            <form action="/superheroapp" method="POST">
-                <input type="hidden" name="id" value="{{ superhero.id }}">
+            <form action="/superheroapp/favorite/{{ superhero.id }}" method="POST">
+                <input type="hidden" name="images" value="{{ superhero.images.md }}">
                 <input type="hidden" name="name" value="{{ superhero.name }}">
-                <input type="hidden" name="img" value="{{ superhero.images.md }}">
-                <input type="hidden" name="powerstats" value="{{ superhero.powerstats }}">
+                <input type="hidden" name="gender" value="{{ superhero.appearance.gender }}">
+                <input type="hidden" name="race" value="{{ superhero.appearance.race }}">
+                <input type="hidden" name="height" value="{{ superhero.appearance.height[0] }}">
+                <input type="hidden" name="weight" value="{{ superhero.appearance.weight[0] }}">
+                <input type="hidden" name="eyeColor" value="{{ superhero.appearance.eyeColor }}">
+                <input type="hidden" name="hairColor" value="{{ superhero.appearance.hairColor }}">
+                <input type="hidden" name="intelligence" value="{{ superhero.powerstats.intelligence }}">
+                <input type="hidden" name="strength" value="{{ superhero.powerstats.strength }}">
+                <input type="hidden" name="speed" value="{{ superhero.powerstats.speed }}">
+                <input type="hidden" name="durability" value="{{ superhero.powerstats.durability }}">
+                <input type="hidden" name="power" value="{{ superhero.powerstats.power }}">
+                <input type="hidden" name="combat" value="{{ superhero.powerstats.combat }}">
+                <input type="hidden" name="fullName" value="{{ superhero.biography.fullName }}">
+                <input type="hidden" name="alterEgos" value="{{ superhero.biography.alterEgos }}">
+                <input type="hidden" name="aliases" value="{{ superhero.biography.aliases }}">
+                <input type="hidden" name="placeOfBirth" value="{{ superhero.biography.placeOfBirth }}">
+                <input type="hidden" name="firstAppearance" value="{{ superhero.biography.firstAppearance }}">
+                <input type="hidden" name="publisher" value="{{ superhero.biography.publisher }}">
+                <input type="hidden" name="alignment" value="{{ superhero.biography.alignment }}">
+                <input type="hidden" name="groupAffiliation" value="{{ superhero.connections.groupAffiliation }}">
                 <input type="submit" value="Favorite" class="btn btn-danger">
             </form>
         </div>
